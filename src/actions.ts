@@ -10,3 +10,10 @@ export function reset() {
         type: 'RESET',
     }
 }
+
+export function setNumberOfVoters(num: number) {
+    return {
+        type: 'SET_NUMBER_OF_VOTERS',
+        num,
+    }
+}

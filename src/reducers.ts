@@ -22,6 +22,9 @@ function createReducer(initialState, handlers) {
 const numberOfVoters = createReducer(initialState.numberOfVoters, {
     RESET: (state, action) => {
         return 0
+    },
+    SET_NUMBER_OF_VOTERS: (state, action) => {
+        return action.num
     }
 })
 

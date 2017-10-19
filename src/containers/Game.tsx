@@ -2,14 +2,15 @@ import * as React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
-import {Chip, FlatButton, RaisedButton} from 'material-ui'
+import {Chip, TextField, FlatButton, RaisedButton} from 'material-ui'
 import * as actionCreators from '@src/actions.ts'
 import {State, ActionType} from '@src/types'
 
 
 interface Prop {
     actions: ActionType;
-    ballot: Array<boolean>
+    ballot: Array<boolean>;
+    numberOfVoters: number;
 }
 
 class GameComponent extends React.Component<Prop, {showBallot: boolean}> {
@@ -22,18 +23,29 @@ class GameComponent extends React.Component<Prop, {showBallot: boolean}> {
         this.props.actions.reset()
     }
 
+    setNumberOfVoters(event, newValue) {
+        this.reset()
+        this.props.actions.setNumberOfVoters(newValue)
+    }
+
     render() {
-        const {ballot, actions} = this.props
+        const {ballot, actions, numberOfVoters} = this.props
         const text = this.state.showBallot ? `${ballot}` : `${ballot.length} have voted`
+        const finished = !!(numberOfVoters && (ballot.length == numberOfVoters))
         return (
             <div>
+                <TextField
+                    floatingLabelText="Number of Voters"
+                    type='number'
+                    onChange={this.setNumberOfVoters.bind(this)}
+                />
                 <Chip>{text}</Chip>
                 <FlatButton
-                    primary label='Vote Yes' fullWidth
+                    primary label='Succeed' fullWidth disabled={finished}
                     onClick={() => actions.castVote(true)}
                 />
                 <RaisedButton
-                    primary label='Vote No' fullWidth
+                    primary label='Fail' fullWidth disabled={finished}
                     onClick={() => actions.castVote(false)}
                 />
                 <RaisedButton secondary fullWidth label='Show Result'
