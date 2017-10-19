@@ -8,12 +8,12 @@ import {Route} from 'react-router-dom'
 import {connect} from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 
-class AppContainer extends React.Component<any, any> {
+class HomeContainer extends React.Component<any, any> {
 
     render() {
         return (
             <div>
-                This is my app
+                current room: 1234
             </div>
         )
     }
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => {
 export const AppComponent = connect(
     mapStateToProps,
     mapDispatchToProps
-)(AppContainer)
+)(HomeContainer)
 
 export const App = ({store, history}) => {
     return <Provider store={store}>
