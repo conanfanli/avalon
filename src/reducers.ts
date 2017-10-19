@@ -5,7 +5,7 @@ import {State} from '@src/types'
 
 
 export const initialState: State = {
-    ballot: {}
+    ballot: []
 }
 
 function createReducer(initialState, handlers) {
@@ -19,13 +19,11 @@ function createReducer(initialState, handlers) {
 }
 
 const ballot = createReducer(initialState.ballot, {
-    VOTE: (state, action) => {
-        return {
-            open: true, element: action.element
-        }
+    CAST_VOTE: (state, action) => {
+        return [...state, action.vote]
     },
     RESET: (state, action) => {
-        return {}
+        return []
     }
 })
 

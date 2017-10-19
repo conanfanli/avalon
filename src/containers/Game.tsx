@@ -1,17 +1,25 @@
 import * as React from 'react'
 import {connect} from 'react-redux'
-// import {bindActionCreators} from 'redux'
+import {bindActionCreators} from 'redux'
 
-// import * as actionCreators from '@src/actions.ts'
-//
-import {State} from '@src/types'
+import {RaisedButton} from 'material-ui'
+import * as actionCreators from '@src/actions.ts'
+import {State, ActionType} from '@src/types'
 
 
-class GameComponent extends React.Component<any, any> {
+interface Prop {
+    actions: ActionType;
+    ballot: Array<boolean>
+}
+
+class GameComponent extends React.Component<Prop, any> {
     render() {
+        const ballot = this.props.ballot
         return (
             <div>
-                5 people have voted
+                {`${ballot.length}`} voted
+                <RaisedButton secondary fullWidth label='Vote'/>
+                <RaisedButton secondary fullWidth label='Show Result'/>
             </div>
         )
     }
@@ -25,7 +33,7 @@ const mapStateToProps = (state: State, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        //       actions: bindActionCreators<any>(actionCreators, dispatch),
+        actions: bindActionCreators<any>(actionCreators, dispatch),
     }
 }
 export const Game = connect(

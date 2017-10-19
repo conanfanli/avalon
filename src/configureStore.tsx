@@ -1,6 +1,6 @@
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
-// import reducers from './reducers'
+import reducers from './reducers'
 import { createStore, applyMiddleware } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
 
@@ -11,7 +11,7 @@ const middleware = process.env.NODE_ENV === 'production' ?
 
 export const configureStore = (history) => {
     const store = createStore(
-        // reducers,
+        reducers,
         applyMiddleware(...middleware, routerMiddleware(history))
     )
 
