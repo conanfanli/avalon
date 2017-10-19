@@ -14,12 +14,21 @@ interface Prop {
 
 class GameComponent extends React.Component<Prop, any> {
     render() {
-        const ballot = this.props.ballot
+        const {ballot, actions} = this.props
         return (
             <div>
                 {`${ballot.length}`} voted
-                <RaisedButton secondary fullWidth label='Vote'/>
-                <RaisedButton secondary fullWidth label='Show Result'/>
+                <RaisedButton
+                    primary label='Vote Yes'
+                    onClick={() => actions.castVote(true)}
+                />
+                <RaisedButton
+                    primary label='Vote No'
+                    onClick={() => actions.castVote(false)}
+                />
+                <RaisedButton secondary fullWidth label='Show Result'
+                    onClick={()=>console.log(111)}
+                />
             </div>
         )
     }
