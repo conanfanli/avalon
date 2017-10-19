@@ -4,4 +4,5 @@ export type ActionType = typeof actionCreators
 
 export interface State {
     ballot: Array<boolean>;
+    numberOfVoters: number;
 }

@@ -4,3 +4,9 @@ export function castVote(vote) {
         vote,
     }
 }
+
+export function reset() {
+    return {
+        type: 'RESET',
+    }
+}

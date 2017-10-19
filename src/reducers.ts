@@ -5,7 +5,8 @@ import {State} from '@src/types'
 
 
 export const initialState: State = {
-    ballot: []
+    ballot: [],
+    numberOfVoters: 0,
 }
 
 function createReducer(initialState, handlers) {
@@ -17,6 +18,12 @@ function createReducer(initialState, handlers) {
         }
     }
 }
+
+const numberOfVoters = createReducer(initialState.numberOfVoters, {
+    RESET: (state, action) => {
+        return 0
+    }
+})
 
 const ballot = createReducer(initialState.ballot, {
     CAST_VOTE: (state, action) => {
@@ -31,6 +38,7 @@ const ballot = createReducer(initialState.ballot, {
 
 const reducers = combineReducers({
     ballot,
+    numberOfVoters,
     router: routerReducer,
 })
 
