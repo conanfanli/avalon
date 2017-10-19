@@ -8,12 +8,14 @@ import {Route} from 'react-router-dom'
 import {connect} from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 
+import {Game} from '@src/containers/Game'
+
 class HomeContainer extends React.Component<any, any> {
 
     render() {
         return (
             <div>
-                current room: 1234
+                <Game />
             </div>
         )
     }
