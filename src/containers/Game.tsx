@@ -23,15 +23,15 @@ class GameComponent extends React.Component<Prop, {showBallot: boolean}> {
         this.props.actions.reset()
     }
 
-    setNumberOfVoters(event, newValue) {
+    setNumberOfVoters(event, newValue: string) {
         this.reset()
-        this.props.actions.setNumberOfVoters(newValue)
+        this.props.actions.setNumberOfVoters(parseInt(newValue))
     }
 
     render() {
         const {ballot, actions, numberOfVoters} = this.props
         const text = this.state.showBallot ? `${ballot}` : `${ballot.length} have voted`
-        const finished = !!(numberOfVoters && (ballot.length == numberOfVoters))
+        const finished = ballot.length === numberOfVoters
         return (
             <div>
                 <TextField
@@ -40,16 +40,21 @@ class GameComponent extends React.Component<Prop, {showBallot: boolean}> {
                     onChange={this.setNumberOfVoters.bind(this)}
                 />
                 <Chip>{text}</Chip>
-                <FlatButton
+                {finished ?
+                    <Chip>Vote has finished</Chip> :
+                    <Chip>Vote is in progress</Chip>
+                }
+                <RaisedButton
                     primary label='Succeed' fullWidth disabled={finished}
                     onClick={() => actions.castVote(true)}
                 />
                 <RaisedButton
-                    primary label='Fail' fullWidth disabled={finished}
+                    secondary label='Fail' fullWidth disabled={finished}
                     onClick={() => actions.castVote(false)}
                 />
-                <RaisedButton secondary fullWidth label='Show Result'
+                <FlatButton secondary fullWidth label='Show Result'
                     onClick={() => this.setState({showBallot: true})}
+                    disabled={ballot.length < numberOfVoters || !numberOfVoters}
                 />
                 <FlatButton
                     primary label='Reset' fullWidth
