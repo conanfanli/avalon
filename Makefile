@@ -34,7 +34,7 @@ deploy-static:
 	# Make sure on master
 	git branch | grep '* master'
 	# Make sure clean
-	git st | grep -o 'working directory clean'
+	git st | grep -o 'clean'
 	# git co static-deploy && git pull && git merge master
 	python manage.py collectstatic --no-input
 	npm run build
