@@ -48,5 +48,6 @@ export function initApp() {
                 number_of_voters: res.number_of_voters
             })
         })
+        setTimeout(() => dispatch(initApp()), 2000)
     }
 }
