@@ -38,6 +38,7 @@ class GameComponent extends React.Component<Prop, {showBallot: boolean}> {
                     floatingLabelText="Number of Voters"
                     type='number'
                     onChange={this.setNumberOfVoters.bind(this)}
+                    value={this.props.numberOfVoters}
                 />
                 <Chip>{text}</Chip>
                 {finished ?

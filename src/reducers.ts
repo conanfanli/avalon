@@ -25,13 +25,15 @@ const numberOfVoters = createReducer(initialState.numberOfVoters, {
     },
     SET_NUMBER_OF_VOTERS: (state, action) => {
         return action.num
-    }
+    },
+    SHOW_MISSION: (state, action) => action.number_of_voters,
 })
 
 const ballot = createReducer(initialState.ballot, {
     CAST_VOTE: (state, action) => {
         return [...state, action.vote]
     },
+    SHOW_MISSION: (state, action) => action.votes,
     RESET: (state, action) => {
         return []
     }
