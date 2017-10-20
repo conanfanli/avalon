@@ -29,6 +29,10 @@ dump-live-data:
 start-dev:
 	honcho start -f Procfile.dev
 
+.PHONY: start-dev-uwsgi
+start-dev-uwsgi:
+	honcho start -f Procfile.dev.uwsgi
+
 .PHONY: deploy-static
 deploy-static:
 	git branch | grep '* master'
