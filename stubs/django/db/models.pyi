@@ -19,4 +19,5 @@ Sum: Any
 QuerySet: Any
 DecimalField: Any
 SmallIntegerField: Any
+BooleanField: Any
 Manager: Any

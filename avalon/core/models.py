@@ -1,16 +1,15 @@
 import uuid
 import typing
-from django.core.cache import cache
-# from django.db import models
-# from django.conf import settings
+from django.db import models
 #
 #
-# class Mission(models.Model):
-#     number_of_voters = models.SmallIntegerField()
-#
-#
-# class Vote(models.Model):
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL)
+class Mission(models.Model):
+    number_of_voters = models.SmallIntegerField()
+
+
+class Vote(models.Model):
+    voter = models.CharField(max_length=10)
+    decision = models.BooleanField()
 
 
 class MissionData(typing.NamedTuple):
@@ -20,11 +19,26 @@ class MissionData(typing.NamedTuple):
 
 
 class Mission:
+    PREFIX = 'missions'
     data: MissionData
 
     def __init__(self, **kwargs) -> None:
         super().__init__()
         self.data = MissionData(**kwargs)
+
+    def __str__(self):
+        return str(self.data)
+
+    def __repr__(self):
+        return repr(self.data)
+
+    @property
+    def key(self):
+        return f'{self.PREFIX}:{self.data.id}'
+
+    def save(self):
+        cache.set(self.key, self, timeout=None)
+        return self
 
     @classmethod
     def create(cls, number_of_voters: int) -> 'Mission':
@@ -33,9 +47,7 @@ class Mission:
             votes=[],
             number_of_voters=number_of_voters
         )
-        missions = cache.get('mission_datas', [])
-        missions.append(mission.data)
-        cache.set('missions', missions)
+        mission.save()
         return mission
 
     @classmethod
@@ -45,4 +57,6 @@ class Mission:
 
     @classmethod
     def select_all(cls) -> typing.List['Mission']:
-        return [Mission(**md) for md in cache.get('mission_datas', [])]
+        keys = cache.keys(f'{cls.PREFIX}:*')
+        return list(cache.get_many(keys).values())
+        # return [mission for mission in cache.get(cls.PREFIX, [])]

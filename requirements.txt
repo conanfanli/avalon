@@ -9,6 +9,7 @@ requests
 djangorestframework-jwt
 uwsgi
 dj-database-url
+django-redis
 mypy
 django-debug-toolbar
 
