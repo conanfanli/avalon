@@ -1,1 +1,1 @@
-web: uwsgi --env DJANGO_SETTINGS_MODULE=avalon.settings.deploy_settings --log-x-forwarded-for --master --http-socket=:$PORT --die-on-term --memory-report --module=cookiecutter.project_namethings.wsgi:application --processes=4 --threads=4
+web: uwsgi --env DJANGO_SETTINGS_MODULE=avalon.settings.deploy_settings --log-x-forwarded-for --master --http-socket=:$PORT --die-on-term --memory-report --module=avalon.wsgi:application --processes=4 --threads=4
