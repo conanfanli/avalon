@@ -3,8 +3,9 @@ from .base_settings import get_environ
 
 DEBUG = False
 # Set this to your prod host
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['heroes-of-avalon.herokuapp.com']
 
 # You can choose a default STATIC_URL for prod such ass
 # "//username.github.io/namespace..."
 STATIC_URL = get_environ('STATIC_URL')
+STATIC_URL = get_environ('STATIC_URL', '//conanfanli.github.io/avalon/')
