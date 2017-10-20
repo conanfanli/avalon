@@ -29,21 +29,20 @@ dump-live-data:
 start-dev:
 	honcho start -f Procfile.dev
 
-.PHONY: start-dev-uwsgi
-start-dev-uwsgi:
-	honcho start -f Procfile.dev.uwsgi
-
 .PHONY: deploy-static
 deploy-static:
+	# Make sure on master
 	git branch | grep '* master'
+	# Make sure clean
 	git st | grep -o 'working directory clean'
-	git co static-deploy && git pull && git merge master
+	# git co static-deploy && git pull && git merge master
 	python manage.py collectstatic --no-input
 	npm run build
 	cp -r dist/* staticfiles/
-	rm -r public
-	mv staticfiles public
-	git add public
+	cd ../conanfanli.github.io
+	rm -r avalon
+	mv ../avalon/staticfiles avalon
+	git add avalon
 	git commit -m 'new deploy'
 	git push
 	git co master
