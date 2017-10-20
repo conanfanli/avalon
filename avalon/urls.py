@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 
 urlpatterns = [
-    url(r'^long-secret-string/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include('avalon.api.v1.urls', namespace='v1')),
 ]
 
