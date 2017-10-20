@@ -34,6 +34,7 @@ class GameComponent extends React.Component<Prop, {showBallot: boolean}> {
         const finished = ballot.length === numberOfVoters
         return (
             <div>
+                <h1>We won't forget about Pierre</h1>
                 <TextField
                     floatingLabelText="Number of Voters"
                     type='number'
