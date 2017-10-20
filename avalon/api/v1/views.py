@@ -4,6 +4,8 @@ from rest_framework import viewsets, serializers
 from avalon.core.models import Mission
 
 
+
+
 class MissionDataSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
     votes = serializers.ListField(
@@ -13,11 +15,19 @@ class MissionDataSerializer(serializers.Serializer):
     number_of_voters = serializers.IntegerField()
 
     def create(self, data):
-        return Mission(number_of_voters=data['number_of_voters']).data
+        return Mission.create(number_of_voters=data['number_of_voters'])
+
+
+class MissionSerializer(serializers.Serializer):
+    data = MissionDataSerializer()
+
 
 
 class MissionViewSet(viewsets.ModelViewSet):
-    serializer_class = MissionDataSerializer
+    serializer_class = MissionSerializer
 
     def get_queryset(self) -> typing.List[Mission]:
         return Mission.select_all()
+
+    def get_object(self, pk=None):
+        return Mission.get_by_id(pk)

@@ -22,18 +22,27 @@ class MissionData(typing.NamedTuple):
 class Mission:
     data: MissionData
 
-    def __init__(self, number_of_voters: int) -> None:
+    def __init__(self, **kwargs) -> None:
         super().__init__()
-        self.data = MissionData(
+        self.data = MissionData(**kwargs)
+
+    @classmethod
+    def create(cls, number_of_voters: int) -> 'Mission':
+        mission = Mission(
             id=str(uuid.uuid4()),
             votes=[],
             number_of_voters=number_of_voters
         )
-
-        missions = cache.get('missions', [])
-        missions.append(self.data)
+        missions = cache.get('mission_datas', [])
+        missions.append(mission.data)
         cache.set('missions', missions)
+        return mission
+
+    @classmethod
+    def get_by_id(cls, id) -> 'Mission':
+        missions = cls.select_all()
+        return [m for m in missions if m.data.id == id][0]
 
     @classmethod
     def select_all(cls) -> typing.List['Mission']:
-        return cache.get('missions')
+        return [Mission(**md) for md in cache.get('mission_datas', [])]
