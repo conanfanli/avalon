@@ -1,2 +1,2 @@
-web: uwsgi -H ~/envs/avalon --env DJANGO_SETTINGS_MODULE=avalon.settings.dev_settings --master --http 0.0.0:8000 --die-on-term --memory-report --module=avalon.wsgi:application --processes=4 --threads=4
-node: yarn start
+web: uwsgi -H ~/envs/avalon --env STATIC_ASSET_URL=https://conanfanli.github.io/avalon/ --env DJANGO_SETTINGS_MODULE=avalon.settings.dev_settings --master --http 0.0.0:8000 --die-on-term --memory-report --module=avalon.wsgi:application --processes=4 --threads=4
+# node: yarn start

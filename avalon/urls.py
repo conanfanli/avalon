@@ -17,9 +17,12 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 
+from avalon.core.views import root
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include('avalon.api.v1.urls', namespace='v1')),
+    url(r'^$', root)
 ]
 
 if settings.DEBUG:

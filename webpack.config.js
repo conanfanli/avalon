@@ -68,7 +68,7 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         // filename: 'bundle.js',
         filename: '[name].js',
-        publicPath: '/'
+        publicPath: '/avalon'
     },
     resolve: {
         alias: {'@src': path.resolve(__dirname, './src')},
